@@ -1,20 +1,18 @@
-GN="%{$fg[green]%}"
-YN="%{$fg[yellow]%}"
-CN="%{$fg[cyan]%}"
-RN="%{$fg[red]%}"
-WN="%{$fg[white]%}"
-GB="%{$fg_bold[green]%}"
-YB="%{$fg_bold[yellow]%}"
-CB="%{$fg_bold[cyan]%}"
-RB="%{$fg_bold[red]%}"
-WB="%{$fg_bold[white]%}"
+FG_G_N="%{$fg[green]%}"
+FG_Y_N="%{$fg[yellow]%}"
+FG_R_N="%{$fg[red]%}"
+FG_W_N="%{$fg[white]%}"
+FG_G_B="%{$fg_bold[green]%}"
+FG_R_B="%{$fg_bold[red]%}"
 R="%{$reset_color%}"
+BG_G="%{$bg[green]%}"
+BG_R="%{$bg[red]%}"
 
-OK="$GB›$R"
-FAIL="$RB›$R"
+OK="$FG_G_B›$R"
+FAIL="$FG_R_B›$R"
 
-GIT_DIRTY="%{$fg[red]%}⬡%{$reset_color%}"
-GIT_CLEAN="%{$fg[green]%}⬢%{$reset_color%}"
+GIT_DIRTY="$FG_R_B⬢$R"
+GIT_CLEAN="$FG_G_B⬢$R"
 GIT_REBASE="\uE0A0"
 GIT_UNPULLED="⇣"
 GIT_UNPUSHED="⇡"
@@ -37,13 +35,13 @@ last_commit() {
 
     if [ $hours -gt 24 ]; then
       commit_age="${days}d"
-      color=$RN
+      color=$FG_R_N
     elif [ $minutes -gt 60 ]; then
       commit_age="${sub_hours}h${sub_minutes}m"
-      color=$WN
+      color=$FG_W_N
     else
       commit_age="${minutes}m"
-      color=$GN
+      color=$FG_G_N
     fi
     echo "$color$commit_age%{$reset_color%}"
   fi
@@ -70,13 +68,13 @@ uptodate() {
   ours=$(git merge-base @ @{u} 2>&1)
 
   if [[ $mine == $yours ]]; then
-    echo "$GB %B=%b"
+    echo "$FG_G_B %B=%b"
   elif [[ $ours == $yours ]]; then
-      echo "$GN %B+%b"
+      echo "$FG_G_N %B+%b"
   elif [[ $ours == $mine ]]; then
-    echo "$YN %B-%b"
+    echo "$FG_Y_N %B-%b"
   else
-    echo "$RB %B!%b"
+    echo "$FG_R_B %B!%b"
   fi
 }
 
@@ -86,7 +84,6 @@ gitprompt() {
   fi
 }
 
-precmd() {
-  PROMPT=" $YN%2~ $R%(?.$OK.$FAIL) "
-  RPROMPT="$(gitprompt)"
-}
+
+PROMPT=" $FG_Y_N%2~ $R%(?.$OK.$FAIL) "
+RPROMPT="$(gitprompt)"
