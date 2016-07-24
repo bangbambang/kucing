@@ -5,11 +5,13 @@ FG_W_N="%{$fg[white]%}"
 FG_G_B="%{$fg_bold[green]%}"
 FG_R_B="%{$fg_bold[red]%}"
 R="%{$reset_color%}"
-BG_G="%{$bg[green]%}"
+BG_Y="%{$bg[yellow]%}"
 BG_R="%{$bg[red]%}"
 
 OK="$FG_G_B›$R"
 FAIL="$FG_R_B›$R"
+MODE_N="${FG_G}n$R"
+MODE_I="${FG_R}i$R"
 
 GIT_DIRTY="$FG_R_B⬢$R"
 GIT_CLEAN="$FG_G_B⬢$R"
@@ -84,6 +86,10 @@ gitprompt() {
   fi
 }
 
-
-PROMPT=" $FG_Y_N%2~ $R%(?.$OK.$FAIL) "
-RPROMPT="$(gitprompt)"
+function zle-line-init zle-keymap-select {
+    PROMPT="$FG_Y_N%2~$R ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
+    RPROMPT="$(gitprompt)"
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
