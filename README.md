@@ -8,3 +8,7 @@ See? SEE?
 
   - Simple prompt, less clutter on ur screen
   - Git status on repo (and a pretty one, too).
+
+## License
+
+[MIT](LICENSE.md)
