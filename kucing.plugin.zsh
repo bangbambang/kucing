@@ -1,7 +1,7 @@
 OK="%F{green}%B›%b%f"
-FAIL="$%F{red}%B›%b%f"
+FAIL="%F{red}%B›%b%f"
 MODE_N="%F{green}%Bn%b%f"
-MODE_I="$%F{red}%Bi%b%f"
+MODE_I="%F{red}%Bi%b%f"
 
 GIT_DIRTY="%F{yellow}⬢%f"
 GIT_CLEAN="%F{green}⬢%f"
