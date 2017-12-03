@@ -1,20 +1,10 @@
-FG_G_N="%{$fg[green]%}"
-FG_Y_N="%{$fg[yellow]%}"
-FG_R_N="%{$fg[red]%}"
-FG_W_N="%{$fg[white]%}"
-FG_G_B="%{$fg_bold[green]%}"
-FG_R_B="%{$fg_bold[red]%}"
-R="%{$reset_color%}"
-BG_Y="%{$bg[yellow]%}"
-BG_R="%{$bg[red]%}"
+OK="%F{green}%B›%b%f"
+FAIL="$%F{red}%B›%b%f"
+MODE_N="%F{green}%Bn%b%f"
+MODE_I="$%F{red}%Bi%b%f"
 
-OK="$FG_G_B›$R"
-FAIL="$FG_R_B›$R"
-MODE_N="${FG_G}n$R"
-MODE_I="${FG_R}i$R"
-
-GIT_DIRTY="$FG_R_B⬢$R"
-GIT_CLEAN="$FG_G_B⬢$R"
+GIT_DIRTY="%F{yellow}⬢%f"
+GIT_CLEAN="%F{green}⬢%f"
 GIT_REBASE="\uE0A0"
 GIT_UNPULLED="⇣"
 GIT_UNPUSHED="⇡"
@@ -37,15 +27,15 @@ last_commit() {
 
     if [ $hours -gt 24 ]; then
       commit_age="${days}d"
-      color=$FG_R_N
+      color="red"
     elif [ $minutes -gt 60 ]; then
       commit_age="${sub_hours}h${sub_minutes}m"
-      color=$FG_W_N
+      color="yellow"
     else
       commit_age="${minutes}m"
-      color=$FG_G_N
+      color="green"
     fi
-    echo "$color$commit_age%{$reset_color%}"
+    echo "%F{$color}$commit_age%f"
   fi
 }
 
@@ -70,13 +60,13 @@ uptodate() {
   ours=$(git merge-base @ @{u} 2>&1)
 
   if [[ $mine == $yours ]]; then
-    echo "$FG_G_B %B=%b"
+    echo "%F{green}%B=%b%f"
   elif [[ $ours == $yours ]]; then
-      echo "$FG_G_N %B+%b"
+      echo "%F{green}+%f"
   elif [[ $ours == $mine ]]; then
-    echo "$FG_Y_N %B-%b"
+    echo "%F{yellow}-%f"
   else
-    echo "$FG_R_B %B!%b"
+    echo "%F{red}%B!%b%f"
   fi
 }
 
@@ -87,7 +77,7 @@ gitprompt() {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT="$FG_Y_N%2~$R ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
+    PROMPT="%F{yellow}%2~%f ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
     RPROMPT="$(gitprompt)"
     zle reset-prompt
 }
