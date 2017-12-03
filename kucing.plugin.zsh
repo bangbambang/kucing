@@ -62,9 +62,9 @@ uptodate() {
   if [[ $mine == $yours ]]; then
     echo "%F{green}%B=%b%f"
   elif [[ $ours == $yours ]]; then
-      echo "%F{green}+%f"
+      echo "%F{green}${GIT_UNPUSHED}%f"
   elif [[ $ours == $mine ]]; then
-    echo "%F{yellow}-%f"
+    echo "%F{yellow}${GIT_UNPULLED}%f"
   else
     echo "%F{red}%B!%b%f"
   fi
@@ -72,7 +72,7 @@ uptodate() {
 
 gitprompt() {
   if git rev-parse --git-dir > /dev/null 2>&1; then
-    echo "$(uptodate)$(current_branch)$R :: $(last_commit) :: $(local_status)"
+    echo "$(uptodate) $(current_branch)$R :: $(last_commit) :: $(local_status)"
   fi
 }
 
