@@ -76,8 +76,14 @@ gitprompt() {
   fi
 }
 
+venvprompt() {
+  if (( ${+VIRTUAL_ENV} )); then
+    echo "%F{green}%B[${VIRTUAL_ENV:t}]%b%f "
+  fi
+}
+
 function zle-line-init zle-keymap-select {
-    PROMPT="%F{yellow}%2~%f ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
+    PROMPT="$(venvprompt)%F{yellow}%2~%f ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
     RPROMPT="$(gitprompt)"
     zle reset-prompt
 }
