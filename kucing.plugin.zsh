@@ -83,7 +83,7 @@ venvprompt() {
 }
 
 function zle-line-init zle-keymap-select {
-    PROMPT="$(venvprompt)%F{yellow}%2~%f ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
+    PROMPT="$(venvprompt)%F{yellow}%n%f@%F{green}%m%f %F{yellow}%2~%f ${${KEYMAP/vicmd/${MODE_N}}/(main|viins)/${MODE_I}}%(?.$OK.$FAIL) "
     RPROMPT="$(gitprompt)"
     zle reset-prompt
 }
